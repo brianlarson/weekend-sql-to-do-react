@@ -1,5 +1,31 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+/* Bootstrap overrides/mods */
+.container {
+  max-width: 60rem;
+}
+.list-group label span {
+  margin-left: .75rem;
+}
+span.badge {
+  transform: translateY(-2px);
+  letter-spacing: 0.02rem;
+  /* color: #1A1D20 !important; */
+}
+
+/* Custom */
+.complete-btn {
+  position: relative;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+}
+.complete-btn:hover {
+  background-color: transparent;
+}
+.complete-btn svg {
+  position: absolute;
+  top: 0.25rem;
+  left: 0.35rem;
+  width: 14px;
+  height: 14px;
+  color: white;
 }

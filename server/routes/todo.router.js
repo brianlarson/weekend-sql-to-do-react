@@ -1,6 +1,6 @@
-const express = require('express');
-const router = express.Router();
-const pool = require('../modules/pool.js');
+import { Router } from 'express';
+const router = Router();
+import pool from '../modules/pool.js';
 
 // GET
 
@@ -10,4 +10,4 @@ const pool = require('../modules/pool.js');
 
 // DELETE
 
-module.exports = router;
+export default router;

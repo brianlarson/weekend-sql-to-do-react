@@ -22,5 +22,5 @@ yarn-error.log*
 
 .eslintcache
 
-todo.md
-.vite/
+.vite
+TODO.md
