@@ -34,7 +34,7 @@ function App() {
       data: { text: todoText }
     })
       .then((response) => {
-        console.log('POST request successful:', response.data);
+        // console.log('POST request successful:', response.data);
         getTodos();
     })
       .catch((err) => {
@@ -42,14 +42,27 @@ function App() {
     });
   };
 
-  // Handle the Add To-Do submit form
+  // Handle adding to-dos with form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (todoText) {
-      addTodo();
-    } else {
-      alert('‼️ Please add description text for your new to-do');
-    }
+    todoText ? addTodo() : alert('‼️ Please add description text for your new to-do');
+  };
+
+  // Handle updating to-dos by toggling completion status
+  const toggleTodo = (todoId) => {
+    const todoToUpdate = todos.find((todo) => todo.id === todoId);
+    axios({
+      method: 'PUT',
+      url: `/api/todos`,
+      data: { id: todoId, isComplete: todoToUpdate.isComplete }
+    })
+      .then((response) => {
+        console.log('PUT request successful:', response.data);
+        getTodos();
+    })
+      .catch((err) => {
+        console.log('Error with PUT request:', err);
+    });
   };
 
   return (
@@ -77,7 +90,10 @@ function App() {
                       <div className="col-10 d-flex align-items-center">
 
                         {/* Complete button (checkbox style) */}
-                        <button className="complete-btn btn btn-outline-secondary"> {/* COMPLETED CLASSES: complete-btn btn btn-outline-success */}
+                        <button 
+                          onClick={() => toggleTodo(id)}
+                          className={`complete-btn btn ${isComplete ? 'btn-outline-success' : 'btn-outline-secondary'}`}
+                        > 
                           {/* Green checkmark icon (for completed items only, otherwise leave empty) */}
                           {isComplete && (
                             <svg className="text-success" fill="currentColor" xmlns="http://www.w3.org/2000/svg" xmlSpace="preserve" width="800" height="800" viewBox="0 0 17.837 17.837">

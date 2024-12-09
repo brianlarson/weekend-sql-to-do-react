@@ -2,6 +2,9 @@
 .container {
   max-width: 60rem;
 }
+button:focus-visible {
+  outline: 2px solid blue; /* Or any style you prefer */
+}
 .list-group label span {
   margin-left: .75rem;
 }

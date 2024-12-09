@@ -8,7 +8,7 @@ const pool = require('../modules/pool.js');
 // GET route: '/api/todos'
 router.get('/', (_, res) => {
   // Run SQL query statement with pg pool to retrieve todos
-  const statement = `SELECT * FROM "todos";`;
+  const statement = `SELECT * FROM "todos" ORDER BY "id";`;
   pool.query(statement)
     .then(result => {
       // console.log('Fetched to-dos from database…', result.rows);
@@ -36,8 +36,18 @@ router.post('/', (req, res) => {
 });
 
 // PUT route: '/api/todos'
+router.put('/', (req, res) => {
+  // console.log(`req.body:`, req.body);
+  const statement = `UPDATE "todos" SET "isComplete" = ${!req.body.isComplete} WHERE "id" = ${req.body.id}`;
+  pool.query(statement)
+    .then(result => {
+      res.sendStatus(200);
+  })
+    .catch(err => {
+      console.log(err);
+  });
+});
 
 // DELETE route: '/api/todos'
-
 
 module.exports = router;
