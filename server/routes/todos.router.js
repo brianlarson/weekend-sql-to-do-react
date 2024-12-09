@@ -1,8 +1,12 @@
 const router = require('express').Router();
 const pool = require('../modules/pool.js');
 
+// ********************* //
+// ** 🙀 Oh C.R.U.D.! ** //
+// ********************* //
+
 // GET route: '/api/todos'
-router.get('/', (req, res) => {
+router.get('/', (_, res) => {
   // Run SQL query statement with pg pool to retrieve todos
   const statement = `SELECT * FROM "todos";`;
   pool.query(statement)
@@ -19,7 +23,7 @@ router.get('/', (req, res) => {
 // POST route: '/api/todos'
 router.post('/', (req, res) => {
   // Run SQL query statement with pg pool to add a new to-do
-  const statement = `INSERT INTO "todos"("text") VALUES ('${req.body.text}');`;
+  const statement = `INSERT INTO "todos" ("text") VALUES ('${req.body.text}');`;
   pool.query(statement)
     .then(result => {
       console.log('Added to-do to database…', result.rows);
@@ -34,5 +38,6 @@ router.post('/', (req, res) => {
 // PUT route: '/api/todos'
 
 // DELETE route: '/api/todos'
+
 
 module.exports = router;

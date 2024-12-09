@@ -5,12 +5,13 @@ function App() {
 
   // Define state vars for todos
   const [todos, setTodos] = useState([]);
+  const [todoText, setToDoText] = useState('');
 
   useEffect(() => {
     getTodos();
   }, []);
 
-  // Fetch todos and update state to request a DOM render
+  // Fetch latest todos and update state to request a DOM render
   const getTodos = () => {
     axios({
       method: 'GET',
@@ -23,14 +24,14 @@ function App() {
       .catch((err) => {
         console.log('Error with GET request:', err);
     });
-  }
+  };
   
-  // Fetch todos and update state to request a DOM render
+  // Add to-do to database and re-fetch to-dos to update DOM
   const addTodo = () => {
     axios({
       method: 'POST',
       url: '/api/todos',
-      data: { id: 105, text: 'TODO_TEXT', isComplete: false }
+      data: { text: todoText }
     })
       .then((response) => {
         console.log('POST request successful:', response.data);
@@ -39,7 +40,17 @@ function App() {
       .catch((err) => {
         console.log('Error with GET request:', err);
     });
-  }
+  };
+
+  // Handle the Add To-Do submit form
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (todoText) {
+      addTodo();
+    } else {
+      alert('‼️ Please add description text for your new to-do');
+    }
+  };
 
   return (
     <>
@@ -63,7 +74,7 @@ function App() {
                 return (    
                   <li key={id} className={`list-group-item ${isComplete ? 'bg-transparent fst-italic text-secondary' : 'bg-dark-subtle'}`}>
                     <div className="row g-3">
-                      <div className="col-7 d-flex align-items-center">
+                      <div className="col-10 d-flex align-items-center">
 
                         {/* Complete button (checkbox style) */}
                         <button className="complete-btn btn btn-outline-secondary"> {/* COMPLETED CLASSES: complete-btn btn btn-outline-success */}
@@ -79,7 +90,7 @@ function App() {
                         <div className="d-flex align-items-center ms-3">
                           <div>{text}</div>
                           {isComplete && (
-                            <div className="ms-3">
+                            <div className="mx-3">
                               <span className="badge rounded-pill bg-transparent text-success border border-success fst-normal fw-light">
                                 Completed
                               </span>
@@ -90,7 +101,7 @@ function App() {
                       </div>
 
                       {/* Completed/timestamp and delete button */}
-                      <div className="col-5 d-flex align-items-center justify-content-end">
+                      <div className="col-2 d-flex align-items-center justify-content-end">
                         {false && (
                           // TODO: Wire up completion date/time
                           <small className="me-4 fst-italic text-dark-subtle lh-1">Completed TIMESTAMP</small>
@@ -108,13 +119,22 @@ function App() {
 
         {/* Add to-do form */}
         <section className="list-group list-unstyled mt-4">
-          <form className="form mx-0">
+          <form onSubmit={handleSubmit} className="form mx-0">
             <div className="row g-2">
 
               {/* Text input */}
               <div className="col-10">
-                <label htmlFor="todoDescription" className="visually-hidden">To-do description</label>
-                <input type="text" id="todoDescription" placeholder="Add a new to-do" className="form-control" />
+                <label htmlFor="todoDescription" className="visually-hidden">
+                  To-do description
+                </label>
+                <input 
+                  onChange={(e) => setToDoText(e.target.value)}
+                  value={todoText}
+                  type="text" 
+                  id="todoDescription" 
+                  placeholder="Add a new to-do" 
+                  className="form-control" 
+                />
               </div>
 
               {/* Add button */}
