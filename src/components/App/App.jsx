@@ -17,11 +17,27 @@ function App() {
       url: '/api/todos'
     })
       .then((response) => {
-        // console.log("GET request successful:", response.data);
+        // console.log('GET request successful:', response.data);
         setTodos(response.data);
     })
       .catch((err) => {
-        console.log("Error with GET request:", err);
+        console.log('Error with GET request:', err);
+    });
+  }
+  
+  // Fetch todos and update state to request a DOM render
+  const addTodo = () => {
+    axios({
+      method: 'POST',
+      url: '/api/todos',
+      data: { id: 105, text: 'TODO_TEXT', isComplete: false }
+    })
+      .then((response) => {
+        console.log('POST request successful:', response.data);
+        getTodos();
+    })
+      .catch((err) => {
+        console.log('Error with GET request:', err);
     });
   }
 
@@ -75,7 +91,8 @@ function App() {
 
                       {/* Completed/timestamp and delete button */}
                       <div className="col-5 d-flex align-items-center justify-content-end">
-                        {isComplete && (
+                        {false && (
+                          // TODO: Wire up completion date/time
                           <small className="me-4 fst-italic text-dark-subtle lh-1">Completed TIMESTAMP</small>
                         )}
                         <button className="btn btn-sm btn-outline-danger">Delete</button>

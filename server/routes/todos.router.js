@@ -3,11 +3,11 @@ const pool = require('../modules/pool.js');
 
 // GET route: '/api/todos'
 router.get('/', (req, res) => {
-  // Run SQL query statement with pg.Pool to retrieve todos
+  // Run SQL query statement with pg pool to retrieve todos
   const statement = `SELECT * FROM "todos";`;
   pool.query(statement)
     .then(result => {
-      console.log('GET request successful:', result.rows);
+      // console.log('Fetched to-dos from database…', result.rows);
       res.send(result.rows);
   })
     .catch(err => {
@@ -17,6 +17,19 @@ router.get('/', (req, res) => {
 });
 
 // POST route: '/api/todos'
+router.post('/', (req, res) => {
+  // Run SQL query statement with pg pool to add a new to-do
+  const statement = `INSERT INTO "todos"("text") VALUES ('${req.body.text}');`;
+  pool.query(statement)
+    .then(result => {
+      console.log('Added to-do to database…', result.rows);
+      res.sendStatus(200);
+  })
+    .catch(err => {
+      console.log('Error with POST request:', err);
+      res.sendStatus(500);
+  });
+});
 
 // PUT route: '/api/todos'
 
