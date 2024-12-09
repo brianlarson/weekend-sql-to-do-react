@@ -16,10 +16,10 @@ router.get('/', (req, res) => {
   });
 });
 
-// POST
+// POST route: '/api/todos'
 
-// PUT
+// PUT route: '/api/todos'
 
-// DELETE
+// DELETE route: '/api/todos'
 
 module.exports = router;
