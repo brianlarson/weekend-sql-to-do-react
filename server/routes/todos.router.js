@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const pool = require('../modules/pool.js');
+const moment = require("moment");
 
 // ********************* //
 // ** 🙀 Oh C.R.U.D.! ** //
@@ -38,7 +39,9 @@ router.post('/', (req, res) => {
 // PUT route: '/api/todos'
 router.put('/', (req, res) => {
   // console.log('Update to-do in database…', req.body);
-  const statement = `UPDATE "todos" SET "isComplete" = ${!req.body.isComplete} WHERE "id" = ${req.body.id}`;
+  const todo = req.body;
+  const timestamp = todo.isComplete ? null : `'${moment().toISOString()}'`;
+  const statement = `UPDATE "todos" SET "isComplete" = ${!todo.isComplete}, "completedAt" = ${timestamp} WHERE "id" = ${todo.id};`;
   pool.query(statement)
     .then(result => {
       res.sendStatus(200);

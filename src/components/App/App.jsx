@@ -55,7 +55,7 @@ function App() {
     const todoToUpdate = todos.find((todo) => todo.id === todoId);
     axios({
       method: 'PUT',
-      url: `/api/todos`,
+      url: '/api/todos',
       data: { 
         id: todoId, 
         isComplete: todoToUpdate.isComplete 
@@ -87,6 +87,20 @@ function App() {
     }
   };
 
+  // Function to convert timestamptz data type value from database
+  // to human-readable
+  const convertTimestamp = (timestamptz) => {
+    const formatArgs = {
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric'
+    };
+    const dateObj = new Date(timestamptz);
+    const timestamp = new Intl.DateTimeFormat('en-US', formatArgs).format(dateObj);
+    return timestamp;
+  };
 
   return (
     <div className="container p-5">
@@ -108,8 +122,8 @@ function App() {
             return (    
               <li key={id} className={`list-group-item ${isComplete ? 'bg-transparent fst-italic text-secondary' : 'bg-dark-subtle'}`}>
                 <div className="row g-3">
-                  <div className="col-10 d-flex align-items-center">
 
+                  <div className="col-8 d-flex align-items-center">
                     {/* Complete button (checkbox style) */}
                     <button 
                       onClick={() => toggleTodo(id)}
@@ -134,14 +148,14 @@ function App() {
                         </div>
                       )}
                     </div>
-
                   </div>
 
                   {/* Completed/timestamp and delete button */}
-                  <div className="col-2 d-flex align-items-center justify-content-end">
-                    {false && (
-                      // TODO: Wire up completion date/time
-                      <small className="me-4 fst-italic text-dark-subtle lh-1">Completed TIMESTAMP</small>
+                  <div className="col-4 d-flex align-items-center justify-content-end">
+                    {isComplete && (
+                      <small className="me-4 fst-italic text-dark-subtle lh-1">
+                        On {convertTimestamp(completedAt)}
+                      </small>
                     )}
                     <button onClick={() => deleteTodo(id)} className="btn btn-sm btn-outline-danger">Delete</button>
                   </div>
