@@ -11,11 +11,11 @@ router.get('/', (_, res) => {
   const statement = `SELECT * FROM "todos" ORDER BY "id";`;
   pool.query(statement)
     .then(result => {
-      // console.log('Fetched to-dos from database…', result.rows);
+      // console.log('Fetch to-dos from database…', result.rows);
       res.send(result.rows);
   })
     .catch(err => {
-      console.log('Error with GET request:', err);
+      console.log('Error with GET query:', err);
       res.sendStatus(500);
   });
 });
@@ -26,28 +26,40 @@ router.post('/', (req, res) => {
   const statement = `INSERT INTO "todos" ("text") VALUES ('${req.body.text}');`;
   pool.query(statement)
     .then(result => {
-      console.log('Added to-do to database…', result.rows);
+      // console.log('Add to-do to database…', result.rows);
       res.sendStatus(200);
   })
     .catch(err => {
-      console.log('Error with POST request:', err);
+      console.log('Error with POST query:', err);
       res.sendStatus(500);
   });
 });
 
 // PUT route: '/api/todos'
 router.put('/', (req, res) => {
-  // console.log(`req.body:`, req.body);
+  // console.log('Update to-do in database…', req.body);
   const statement = `UPDATE "todos" SET "isComplete" = ${!req.body.isComplete} WHERE "id" = ${req.body.id}`;
   pool.query(statement)
     .then(result => {
       res.sendStatus(200);
   })
     .catch(err => {
+      console.log('Error with PUT query:', err);
       console.log(err);
   });
 });
 
-// DELETE route: '/api/todos'
+// DELETE route: '/api/todos/{id}'
+router.delete('/:id', (req, res) => {
+  const statement = `DELETE FROM "todos" WHERE "id" = ${req.params.id};`;
+  pool.query(statement)
+    .then(result => {
+      // console.log('To-do deleted from database…');
+      res.sendStatus(200);
+  })
+    .catch(err => {
+      console.log('Error with DELETE query:', err);
+  });
+});
 
 module.exports = router;
