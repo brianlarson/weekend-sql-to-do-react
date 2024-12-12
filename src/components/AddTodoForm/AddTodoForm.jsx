@@ -1,4 +1,4 @@
-function AddToDoForm() {
+function AddToDoForm({ todoText, handleChange, handleSubmit }) {
   return (
     <section className="list-group list-unstyled mt-4">
       <form onSubmit={handleSubmit} className="form mx-0">
@@ -10,7 +10,7 @@ function AddToDoForm() {
               To-do description
             </label>
             <input 
-              onChange={(e) => setToDoText(e.target.value)}
+              onChange={handleChange}
               value={todoText}
               type="text" 
               id="todoDescription" 

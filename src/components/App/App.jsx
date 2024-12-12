@@ -8,7 +8,7 @@ function App() {
 
   // Define state vars for todos
   const [todos, setTodos] = useState([]);
-  const [todoText, setToDoText] = useState('');
+  const [todoText, setTodoText] = useState('');
 
   // Keep to-dos in sync with database
   useEffect(() => {
@@ -46,11 +46,16 @@ function App() {
     });
   };
 
+  // Handle changes to add to-do input element
+  const handleChange = ({target}) => {
+    setTodoText(target.value);
+  }
+
   // Handle adding to-dos with form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     todoText ? addTodo() : alert(`‼️ Please add a description for your new to-do`);
-    setToDoText('');
+    setTodoText('');
   };
 
   // Function for toggling completion status of to-dos
@@ -166,7 +171,11 @@ function App() {
       </section>
 
       {/* Add to-do form */}
-      <AddTodoForm />
+      <AddTodoForm 
+        todoText={todoText}
+        handleChange={handleChange} 
+        handleSubmit={handleSubmit} 
+      />
       
     </div>
   );
