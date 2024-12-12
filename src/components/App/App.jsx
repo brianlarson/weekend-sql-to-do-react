@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
+import Header from '../Header/Header';
+
 function App() {
 
   // Define state vars for todos
@@ -106,12 +108,7 @@ function App() {
     <div className="container p-5">
 
       {/* App header/title */}
-      <header className="mb-4">
-        <h1 className="h2 text-dark-emphasis">
-          <span className="me-2">👍🏻</span> To-Do App
-        </h1>
-        <hr />
-      </header>
+      <Header appName="TestTo-Do App" />
 
       {/* To-do list */}
       <section>
