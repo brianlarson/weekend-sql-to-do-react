@@ -1,4 +1,4 @@
-function Header({appName}) {
+export default function Header({ appName }) {
   return (
     <header className="mb-4">
       <h1 className="h2 text-dark-emphasis">
@@ -8,5 +8,3 @@ function Header({appName}) {
     </header>
   );
 }
-
-export default Header;
