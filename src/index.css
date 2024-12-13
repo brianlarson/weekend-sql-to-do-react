@@ -28,3 +28,7 @@ span.badge {
   height: 14px;
   color: white;
 }
+
+#root *:focus:not(.focus-visible) {
+  outline: none; /* Hide focus outline for non-visible focus */
+}

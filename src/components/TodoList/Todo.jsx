@@ -57,7 +57,7 @@ export default function Todo({ todo, todos, getTodos }) {
   // Destructure the todo object and return our to-do item component
   const { id, text, isComplete, completedAt } = todo;
   return (
-    <li className={`list-group-item ${isComplete ? "bg-transparent fst-italic text-secondary" : "bg-dark-subtle"}`}>
+    <li className={`list-group-item ${isComplete ? "bg-dark fst-italic text-secondary" : "bg-dark-subtle"}`}>
       <div className="row g-3">
         <div className="col-8 d-flex align-items-center">
           {/* Complete button (checkbox style) */}
@@ -78,7 +78,7 @@ export default function Todo({ todo, todos, getTodos }) {
             <div>{text}</div>
             {isComplete && (
               <div className="mx-3">
-                <span className="badge rounded-pill bg-transparent text-success border border-success fst-normal fw-light">
+                <span className="badge rounded-pill bg-dark text-success border border-success fst-normal fw-light">
                   Completed
                 </span>
               </div>
