@@ -12,9 +12,7 @@ export default function App() {
   const [todoText, setTodoText] = useState('');
 
   // Keep to-dos in sync with database
-  useEffect(() => {
-    getTodos();
-  }, []);
+  useEffect(() => { getTodos() }, []);
 
   // Fetch latest todos and update state to request a DOM render
   const getTodos = () => {
@@ -34,8 +32,16 @@ export default function App() {
   return (
     <div className="container p-5">
       <Header appName="To-Do App" />
-      <TodoList todos={todos} getTodos={getTodos} />
-      <AddTodoForm todoText={todoText} setTodoText={setTodoText} getTodos={getTodos} />
+      <TodoList
+        todos={todos}
+        getTodos={getTodos} 
+      />
+      <AddTodoForm
+        todoText={todoText}
+        setTodoText={setTodoText}
+        getTodos={getTodos} 
+      />
     </div>
   );
+  
 }

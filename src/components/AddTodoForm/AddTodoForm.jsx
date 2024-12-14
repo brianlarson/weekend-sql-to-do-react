@@ -19,13 +19,12 @@ export default function AddTodoForm({ todoText, setTodoText, getTodos }) {
   };
 
   // Handle changes to add to-do input element
-  const handleChange = ({target}) => {
+  const handleChange = ({ target }) => {
     setTodoText(target.value);
   }
 
   // Handle adding to-dos with form submission
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     todoText ? addTodo() : alert(`‼️ Please add a description for your new to-do`);
     setTodoText('');
   };

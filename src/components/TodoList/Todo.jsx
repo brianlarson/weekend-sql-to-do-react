@@ -60,6 +60,7 @@ export default function Todo({ todo, todos, getTodos }) {
     <li className={`list-group-item ${isComplete ? "bg-dark fst-italic text-secondary" : "bg-dark-subtle"}`}>
       <div className="row g-3">
         <div className="col-8 d-flex align-items-center">
+
           {/* Complete button (checkbox style) */}
           <button
             onClick={() => toggleTodo(id)}
@@ -84,6 +85,7 @@ export default function Todo({ todo, todos, getTodos }) {
               </div>
             )}
           </div>
+          
         </div>
 
         {/* Completed/timestamp and delete button */}
