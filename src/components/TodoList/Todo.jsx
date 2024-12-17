@@ -1,10 +1,11 @@
 import { useContext } from "react";
-import TodosContext from "../../contexts/TodosContext";
 import axios from 'axios';
 
-export default function Todo({ todo }) {
+import TodosContext from "../../contexts/TodosContext";
 
-  const { todos, getTodos } = useContext(TodosContext);
+export default function Todo({ todo, getTodos }) {
+
+  const { todos } = useContext(TodosContext);
   
   // Function for toggling completion status of to-dos
   const toggleTodo = (todoId) => {
