@@ -1,6 +1,11 @@
+import { useContext } from "react";
 import axios from 'axios';
 
-export default function Todo({ todo, todos, getTodos }) {
+import TodosContext from "../../contexts/TodosContext";
+
+export default function Todo({ todo, getTodos }) {
+
+  const { todos } = useContext(TodosContext);
   
   // Function for toggling completion status of to-dos
   const toggleTodo = (todoId) => {
@@ -96,7 +101,7 @@ export default function Todo({ todo, todos, getTodos }) {
             </small>
           )}
           <button onClick={() => deleteTodo(id)} className="btn btn-sm btn-outline-danger">
-            Delete
+            <small>Delete</small>
           </button>
         </div>
       </div>
