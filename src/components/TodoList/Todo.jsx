@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import axios from 'axios';
-
 import TodosContext from "../../contexts/TodosContext";
 
 export default function Todo({ todo, getTodos }) {
