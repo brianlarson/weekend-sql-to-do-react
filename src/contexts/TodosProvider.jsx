@@ -29,9 +29,29 @@ function TodosProvider({ children }) {
     });
   };
 
+  // Function for toggling completion status of to-dos
+  const toggleTodo = (todoId) => {
+    const todoToUpdate = todos.find((todo) => todo.id === todoId);
+    axios({
+      method: 'PUT',
+      url: '/api/todos',
+      data: { 
+        id: todoId, 
+        isComplete: todoToUpdate.isComplete 
+      }
+    })
+      .then((_) => {
+        // console.log('PUT request successful:', _.data);
+        getTodos();
+    })
+      .catch((err) => {
+        console.log('Error with PUT request:', err);
+    });
+  };
+
   return (
     <TodosContext.Provider value={
-      { todos, setTodos, todoText, setTodoText, getTodos }
+      { todos, setTodos, todoText, setTodoText, getTodos, toggleTodo }
     }>
       {children}
     </TodosContext.Provider>
