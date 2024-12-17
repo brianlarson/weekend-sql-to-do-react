@@ -1,6 +1,9 @@
+import { useTodos } from "../../contexts/TodosContext";
 import axios from 'axios';
 
-export default function AddTodoForm({ todoText, setTodoText, getTodos }) {
+export default function AddTodoForm({ getTodos }) {
+
+  const { todoText, setTodoText } = useTodos();
 
   // Add to-do to database and re-fetch to-dos to update DOM
   const addTodo = () => {

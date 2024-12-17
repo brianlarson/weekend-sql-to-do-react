@@ -1,7 +1,5 @@
 import { useState } from "react";
-import axios from 'axios';
-
-import TodosContext from "./TodosContext";
+import TodosContext from "../../contexts/TodosContext";
 
 function TodosProvider({ children }) {
   
@@ -10,9 +8,7 @@ function TodosProvider({ children }) {
   const [todoText, setTodoText] = useState('');
 
   return (
-    <TodosContext.Provider value={
-      { todos, setTodos, todoText, setTodoText }
-    }>
+    <TodosContext.Provider value={{ todos, todoText, setTodos, setTodoText }}>
       {children}
     </TodosContext.Provider>
   );
