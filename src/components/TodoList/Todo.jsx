@@ -4,7 +4,27 @@ import axios from 'axios';
 
 export default function Todo({ todo }) {
 
-  const { todos, getTodos, toggleTodo } = useContext(TodosContext);
+  const { todos, getTodos } = useContext(TodosContext);
+  
+  // Function for toggling completion status of to-dos
+  const toggleTodo = (todoId) => {
+    const todoToUpdate = todos.find((todo) => todo.id === todoId);
+    axios({
+      method: 'PUT',
+      url: '/api/todos',
+      data: { 
+        id: todoId, 
+        isComplete: todoToUpdate.isComplete 
+      }
+    })
+      .then((_) => {
+        // console.log('PUT request successful:', _.data);
+        getTodos();
+    })
+      .catch((err) => {
+        console.log('Error with PUT request:', err);
+    });
+  };
 
   // Function for deleting to-dos
   const deleteTodo = (todoId) => {
