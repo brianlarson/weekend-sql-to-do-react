@@ -100,12 +100,8 @@ export default function Todo({ todo, getTodos }) {
               On {convertTimestamp(completedAt)}
             </small>
           )}
-          <button 
-            onClick={() => deleteTodo(id)} 
-            className="btn btn-sm btn-outline-danger"
-            style={{ 'width': 32, 'fontWeight': 'bold' }}
-          >
-            <small>X</small>
+          <button onClick={() => deleteTodo(id)} className="btn btn-sm btn-outline-danger">
+            <small>Delete</small>
           </button>
         </div>
       </div>

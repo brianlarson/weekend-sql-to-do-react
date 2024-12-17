@@ -1,4 +1,4 @@
-CREATE TABLE "todos" (
+CREATE TABLE IF NOT EXISTS "todos" (
 	"id" SERIAL PRIMARY KEY,
 	"text" TEXT,
 	"isComplete" BOOLEAN DEFAULT FALSE
@@ -13,5 +13,3 @@ INSERT INTO "todos"
 ALTER TABLE "todos" ADD "completedAt" TIMESTAMPTZ;
 
 SELECT * FROM "todos";
-
-UPDATE "todos" SET "isComplete" = true WHERE "id" = 23;
