@@ -1,9 +1,9 @@
-import { useTodos } from "../../contexts/TodosContext";
-import axios from 'axios';
+import { useState } from "react";
+import axios from "axios";
 
-export default function AddTodoForm({ getTodos }) {
+export default function AddTodoForm() {
 
-  const { todoText, setTodoText } = useTodos();
+  const [todoText, setTodoText] = useState('');
 
   // Add to-do to database and re-fetch to-dos to update DOM
   const addTodo = () => {
@@ -11,10 +11,6 @@ export default function AddTodoForm({ getTodos }) {
       method: 'POST',
       url: '/api/todos',
       data: { text: todoText }
-    })
-      .then((_) => {
-        // console.log('POST request successful:', _.data);
-        getTodos();
     })
       .catch((err) => {
         console.log('Error with GET request:', err);
@@ -27,7 +23,8 @@ export default function AddTodoForm({ getTodos }) {
   }
 
   // Handle adding to-dos with form submission
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     todoText ? addTodo() : alert(`‼️ Please add a description for your new to-do`);
     setTodoText('');
   };

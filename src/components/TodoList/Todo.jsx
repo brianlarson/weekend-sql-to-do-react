@@ -1,11 +1,11 @@
-import { useContext } from "react";
-import axios from 'axios';
-import TodosContext from "../../contexts/TodosContext";
+import { useTodos } from "../../hooks/useTodos";
+import axios from "axios";
 
-export default function Todo({ todo, getTodos }) {
+export default function Todo({ todo }) {
 
-  const { todos } = useContext(TodosContext);
-  
+  // Destructure useTodos custom hook
+  const { todos } = useTodos();
+
   // Function for toggling completion status of to-dos
   const toggleTodo = (todoId) => {
     const todoToUpdate = todos.find((todo) => todo.id === todoId);
@@ -16,10 +16,6 @@ export default function Todo({ todo, getTodos }) {
         id: todoId, 
         isComplete: todoToUpdate.isComplete 
       }
-    })
-      .then((_) => {
-        // console.log('PUT request successful:', _.data);
-        getTodos();
     })
       .catch((err) => {
         console.log('Error with PUT request:', err);
@@ -32,10 +28,6 @@ export default function Todo({ todo, getTodos }) {
       axios({
         method: 'DELETE',
         url: `/api/todos/${todoId}`
-      })
-        .then((_) => {
-          // console.log('DELETE request successful:', _.data);
-          getTodos();
       })
         .catch((err) => {
           console.log('Error with DELETE request:', err);
@@ -58,8 +50,9 @@ export default function Todo({ todo, getTodos }) {
     return timestamp;
   };
 
-  // Destructure the todo object and return our to-do item component
+  // Destructure the todo object
   const { id, text, isComplete, completedAt } = todo;
+
   return (
     <li className={`list-group-item ${isComplete ? "bg-dark fst-italic text-secondary" : "bg-dark-subtle"}`}>
       <div className="row g-3">
